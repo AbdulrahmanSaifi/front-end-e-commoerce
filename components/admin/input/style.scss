@@ -1,0 +1,68 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+
+    align-items: end;
+    &--forgot-password {
+        color: #0070f3;
+        text-decoration: none;
+        font-size: 14px;
+        margin-top: 10px;
+        display: inline-block;
+        text-decoration: underline;
+
+
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.input-box {
+    &__label {
+        // أضف هنا أنماط العلامة
+        color: #555555;
+        font-size: 16px;
+    }
+
+    &__input {
+        position: relative;
+
+        // أضف هنا أنماط الإدخال
+        input {
+            outline: none;
+            background-color: #F1F3F6;
+            border-radius: 8px;
+            height: 40px;
+            width: 350px;
+            max-width: 350px;
+            padding-left: 20px;
+            padding-right: 50px; // أضف مساحة داخلية لليمين حتى لا يتداخل النص مع الأيقونة
+        }
+
+        .input-box__icon {
+            // أضف هنا أنماط الأيقونة
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: #1B2431;
+            border-radius: 8px;
+            top: 0;
+            right: 0; // جعل الأيقونة على اليمين
+            @include flex-center;
+
+            img {
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+}

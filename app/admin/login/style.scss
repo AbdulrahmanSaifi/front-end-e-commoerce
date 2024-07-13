@@ -1,0 +1,62 @@
+// المتغيرات
+$section-background-color: #F1F3F6;
+$box-background-color: #FFFFFF;
+$box-width: 480px;
+$box-height: 599px;
+$full-width: 100%;
+$full-height: 100vh;
+$box-login-max-width: 420px;
+
+// مزيجات
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin flex-center-col() {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+.section {
+    &--login {
+        background-color: $section-background-color;
+        width: $full-width;
+        height: $full-height;
+        @include flex-center; // استخدام المزيج لتمركز المحتوى
+    }
+
+    &__box {
+        // إذا كان هناك خصائص لهذا العنصر، يمكن إضافتها هنا
+    }
+
+    &__box-login {
+        width: $box-width;
+        height: $box-height;
+        background-color: $box-background-color;
+        max-width: $box-login-max-width;
+        @include flex-center-col;
+    
+    }
+
+    &__box-container{
+        max-width: 380px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+
+    }
+
+    &__background {
+        @include flex-center; // استخدام المزيج لتمركز المحتوى
+        width: $full-width;
+    }
+    &__inputs-gurp{
+        gap: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+}
