@@ -2,22 +2,29 @@
 import './style.scss'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Logo from '@/components/admin/logo_admin/logo'
 import Input from '@/components/admin/input/input'
 import Button from '@/components/admin/button/button'
 import axios from 'axios'
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from 'react-toastify';
+import { setCookie } from 'cookies-next';
+import { useMediaQuery } from 'react-responsive';
 
 export default function Page() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [status, setStatus] = useState<boolean | null>(null) // استخدام null كحالة أولية
-    const [attemptedLogin, setAttemptedLogin] = useState(false) // حالة لتتبع محاولة تسجيل الدخول
+    const [isClient, setIsClient] = useState(false);
+    const isDesktop = useMediaQuery({ minWidth: 1224 });
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1224 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     const loginReq = async () => {
-        setAttemptedLogin(true) // تحديث حالة محاولة تسجيل الدخول
         try {
             const url = 'http://localhost:4000/auth/admin/login';
             const data = {
@@ -31,18 +38,21 @@ export default function Page() {
                 }
             });
 
-            setStatus(true);
-            toast.success('تم تسجيل الدخول بنجاح', {
+            toast.success('Login successful', {
                 position: 'top-center'
             });
+            setCookie('jwt', response.data.data.token)
         } catch (error) {
-            setStatus(false);
-            toast.error('فشل تسجيل الدخول. حاول مرة أخرى.', {
+            toast.error('The email or password is incorrect.', {
                 position: 'top-center'
             });
             console.error('Error:', error); // التعامل مع الأخطاء إذا حدثت
         }
     };
+
+    if (!isClient) {
+        return null; // عدم عرض أي شيء حتى يتم التوليد في المتصفح
+    }
 
     return (
         <>
@@ -79,9 +89,13 @@ export default function Page() {
                         </div>
                     </div>
                 </div>
-                <div className="section__background">
-                    <Image src='/image__section__background.svg' alt='image' width={580} height={580} />
-                </div>
+                {
+                    isDesktop && (
+                        <div className="section__background">
+                            <Image src='/image__section__background.svg' alt='image' width={580} height={580} />
+                        </div>
+                    )
+                }
             </div>
         </>
     )

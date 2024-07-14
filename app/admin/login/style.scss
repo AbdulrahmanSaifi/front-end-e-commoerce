@@ -6,6 +6,10 @@ $box-height: 599px;
 $full-width: 100%;
 $full-height: 100vh;
 $box-login-max-width: 420px;
+$desktop: 1224px;
+$tablet-min: 768px;
+$tablet-max: 1224px;
+$mobile: 767px;
 
 // مزيجات
 @mixin flex-center {
@@ -39,10 +43,10 @@ $box-login-max-width: 420px;
         background-color: $box-background-color;
         max-width: $box-login-max-width;
         @include flex-center-col;
-    
+
     }
 
-    &__box-container{
+    &__box-container {
         max-width: 380px;
         display: flex;
         flex-direction: column;
@@ -54,13 +58,41 @@ $box-login-max-width: 420px;
         @include flex-center; // استخدام المزيج لتمركز المحتوى
         width: $full-width;
     }
-    &__inputs-gurp{
+
+    &__inputs-gurp {
         gap: 30px;
         display: flex;
         flex-direction: column;
     }
 
-    &__alert_error{
+    &__alert_error {
         position: absolute;
+    }
+
+    &__inputs-group {
+        gap: 40px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: $mobile) {
+    .section {
+
+        &__box-login {
+            width: 375px;
+            max-width: 375px;
+        }
+
+    }
+}
+
+@media (min-width: $tablet-min) and (max-width: $tablet-max) {
+    .section {}
+}
+
+@media (min-width: $desktop) {
+    .section {
+        // الأنماط الخاصة بشاشات الديسكتوب
     }
 }
