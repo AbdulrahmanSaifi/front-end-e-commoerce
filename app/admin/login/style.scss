@@ -59,4 +59,8 @@ $box-login-max-width: 420px;
         display: flex;
         flex-direction: column;
     }
+
+    &__alert_error{
+        position: absolute;
+    }
 }

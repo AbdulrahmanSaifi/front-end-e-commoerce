@@ -1,9 +1,14 @@
 import React from "react"
 import './style.scss'
-const button: React.FC = () => {
+
+interface button {
+    onClick: () => void
+}
+
+const button: React.FC<button> = ({ onClick }) => {
 
     return (
-        <button className="button">
+        <button onClick={onClick} className="button">
             Login Now
         </button>
     )
