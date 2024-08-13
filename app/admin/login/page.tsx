@@ -3,25 +3,29 @@ import './style.scss'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
-import Logo from '@/components/admin/logo_admin/logo'
-import Input from '@/components/admin/input/input'
-import Button from '@/components/admin/button/button'
+import Logo from './_components/logo_admin/logo'
+import Input from './_components/input/input'
+import Button from './_components/button/button'
 import axios from 'axios'
 import "react-toastify/dist/ReactToastify.css";
 import { toast, ToastContainer } from 'react-toastify';
-import { setCookie } from 'cookies-next';
+import { setCookie ,getCookie } from 'cookies-next';
 import { useMediaQuery } from 'react-responsive';
+import { useRouter } from 'next/navigation';
 
 export default function Page() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [isClient, setIsClient] = useState(false);
     const isDesktop = useMediaQuery({ minWidth: 1224 });
-    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1224 });
-    const isMobile = useMediaQuery({ maxWidth: 767 });
+    const router = useRouter();
 
     useEffect(() => {
         setIsClient(true);
+        const token = getCookie('jwt')
+        if(token){
+            router.push('/admin/dashbord')
+        }
     }, []);
 
     const loginReq = async () => {
@@ -42,6 +46,9 @@ export default function Page() {
                 position: 'top-center'
             });
             setCookie('jwt', response.data.data.token)
+            setTimeout(()=>{
+                router.push('/admin/dashbord')
+            },2000)
         } catch (error) {
             toast.error('The email or password is incorrect.', {
                 position: 'top-center'
